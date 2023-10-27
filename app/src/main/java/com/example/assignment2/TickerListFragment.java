@@ -1,6 +1,7 @@
 package com.example.assignment2;
 
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,30 +14,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.LinkedList;
 
 public class TickerListFragment extends Fragment {
-    LinkedList<String> tickerList= new LinkedList<>();
     ListView tickerLv;
-    String[] tickerNames = {"BAC","AAPL","DIS"};
+    InfoWebFragment idkMan =  new InfoWebFragment();
+    String[] tickerNames = {"BAC","AAPL","DIS","","",};
     String[] tickerLinks = {"https://seekingalpha.com/symbol/BAC","https://seekingalpha.com/symbol/AAPL",
-        "https://seekingalpha.com/symbol/DIS"};
+        "https://seekingalpha.com/symbol/DIS","",""};
     public TickerListFragment() {
         // Required empty public constructor
     }
-    private View.OnClickListener lvListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            view.getContext();
-        }
-    };
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        tickerList = new LinkedList<>();
 
     }
 
@@ -53,19 +43,32 @@ public class TickerListFragment extends Fragment {
         tickerLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Uri uri = Uri.parse(tickerLinks[i]);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
+                /*Uri uri = Uri.parse(tickerLinks[i]);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);//    opens web page
+                startActivity(intent);*/
+                idkMan.displayWeb(tickerLinks[i]);
+
             }
         });
         return view;
     }
-}
-    /*public void addTicker(String newTick){
-        tickerList.add(newTick);
-        //HistoryFragment hf  = this.();
+    public void addTicker(String newTick){//adds ticker to the list, if its
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,tickerList);
-        tickerLv.setAdapter(adapter);
+        for(int i = 0; tickerNames.length >= i; i++){
+                if(tickerNames[i]==""){
+                    tickerHelper(newTick,i);
+                    break;
+
+                } else if (i>=tickerNames.length) {
+                    tickerHelper(newTick,0);
+                    break;
+                }
+        }
     }
-}*/
+    public void tickerHelper(String newTick,int index){
+        //unnecessary but I wanted it to be easier
+        tickerNames[index]=newTick;
+        tickerLinks[index]="https://seekingalpha.com/symbol/" + newTick;
+        Log.i("console","added "+newTick);
+    }
+}
