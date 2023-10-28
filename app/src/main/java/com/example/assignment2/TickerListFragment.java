@@ -27,7 +27,6 @@ public class TickerListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -43,10 +42,10 @@ public class TickerListFragment extends Fragment {
         tickerLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                /*Uri uri = Uri.parse(tickerLinks[i]);
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);//    opens web page
-                startActivity(intent);*/
-                idkMan.displayWeb(tickerLinks[i]);
+
+
+
+                //idkMan.displayWeb(tickerLinks[i],view);//this works, but for some reason the display
 
             }
         });
